@@ -168,7 +168,7 @@ export default function FleetServiceData() {
       // 导航到报告页面
       navigate('/fleet-service/report');
 
-      fetch('https://jwu66.pythonanywhere.com/upload', {
+      fetch('https://kcm-tool-backend.onrender.com/upload', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           // 'Content-Type': 'multipart/form-data',
