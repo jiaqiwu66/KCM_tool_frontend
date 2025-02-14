@@ -164,11 +164,8 @@ export default function FleetServiceData() {
       
       // 模拟报告生成时间
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // 导航到报告页面
-      navigate('/fleet-service/report');
 
-      fetch('https://jwu66.pythonanywhere.com/upload', {
+      await fetch('https://jwu66.pythonanywhere.com/upload', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           // 'Content-Type': 'multipart/form-data',
@@ -178,13 +175,28 @@ export default function FleetServiceData() {
         method: 'POST',
         body: formData
       }).then((response) => {
-        var a = response.body.getReader();
-        a.read().then(({value }) => {
+        const reader = response.body.getReader();
+        reader.read().then(({value }) => {
               // console.log(new TextDecoder("utf-8").decode(value));
               saveAsFile(new TextDecoder("utf-8").decode(value), 'filename');
             }
         );
       });
+
+      await fetch('https://jwu66.pythonanywhere.com/getResult', {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          // 'Content-Type': 'multipart/form-data',
+          // 'Accept': 'application/json',
+        },
+        // mode: 'no-cors',
+        method: 'GET'}).then((response) => {
+        response.json().then((data) => {
+          // 导航到报告页面
+          navigate('/fleet-service/report', {state: data});
+        })
+      });
+
 
       function saveAsFile(text, filename) {
         // Step 1: Create the blob object with the text you received

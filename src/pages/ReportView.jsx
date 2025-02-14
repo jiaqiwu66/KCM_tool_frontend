@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Layout from '../components/Layout';
 
 export default function ReportView() {
+  const location = useLocation();
+  const data = location.state;
   const navigate = useNavigate();
   const [reportData] = useState({
     overview: {
-      workable: { count: 123, percentage: 30 },
-      needOneSplit: { count: 234, percentage: 50 },
-      needTwoSplits: { count: 100, percentage: 20 }
+      workable: { count: data.no_split, percentage: (data.no_split / data.total * 100).toFixed(2)},
+      needOneSplit: { count: data.one_split, percentage: (data.one_split / data.total * 100).toFixed(2) },
+      needTwoSplits: { count: data.two_split, percentage: (data.two_split / data.total * 100).toFixed(2) }
     },
     simulationConditions: {
       weather: 'Optimal',
@@ -22,6 +24,7 @@ export default function ReportView() {
       // ... 更多数据
     ]
   });
+
 
   const [activeView, setActiveView] = useState('block');
 
@@ -69,6 +72,7 @@ export default function ReportView() {
                     {reportData.overview.needTwoSplits.count} blocks, {reportData.overview.needTwoSplits.percentage}%
                   </div>
                 </div>
+
                 <div className="flex gap-4 text-sm text-gray-600">
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 bg-teal-100"></div>
@@ -133,57 +137,57 @@ export default function ReportView() {
             </div>
 
             {/* Details Table */}
-            <div className="border rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Block ID
-                      <span className="ml-1">↓</span>
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Base
-                      <span className="ml-1">↓</span>
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Bus length
-                      <span className="ml-1">↓</span>
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                      <span className="ml-1">↓</span>
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Battery capacity(kWh)
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Energy needed(kWh)
-                      <span className="ml-1">↓</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {reportData.details.map((item, index) => (
-                    <tr key={index}>
-                      <td className="px-6 py-4 text-sm text-gray-900">{item.blockId}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{item.base}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{item.busLength}</td>
-                      <td className="px-6 py-4 text-sm">
-                        <span className={`px-2 py-1 rounded-full text-xs ${
-                          item.status === 'Work' ? 'bg-teal-100 text-teal-800' :
-                          item.status === '1 split' ? 'bg-pink-100 text-pink-800' :
-                          'bg-red-100 text-red-800'
-                        }`}>
-                          {item.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{item.batteryCapacity}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{item.energyNeeded}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            {/*<div className="border rounded-lg">*/}
+            {/*  <table className="min-w-full divide-y divide-gray-200">*/}
+            {/*    <thead className="bg-gray-50">*/}
+            {/*      <tr>*/}
+            {/*        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+            {/*          Block ID*/}
+            {/*          <span className="ml-1">↓</span>*/}
+            {/*        </th>*/}
+            {/*        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+            {/*          Base*/}
+            {/*          <span className="ml-1">↓</span>*/}
+            {/*        </th>*/}
+            {/*        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+            {/*          Bus length*/}
+            {/*          <span className="ml-1">↓</span>*/}
+            {/*        </th>*/}
+            {/*        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+            {/*          Status*/}
+            {/*          <span className="ml-1">↓</span>*/}
+            {/*        </th>*/}
+            {/*        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+            {/*          Battery capacity(kWh)*/}
+            {/*        </th>*/}
+            {/*        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+            {/*          Energy needed(kWh)*/}
+            {/*          <span className="ml-1">↓</span>*/}
+            {/*        </th>*/}
+            {/*      </tr>*/}
+            {/*    </thead>*/}
+            {/*    <tbody className="bg-white divide-y divide-gray-200">*/}
+            {/*      {reportData.details.map((item, index) => (*/}
+            {/*        <tr key={index}>*/}
+            {/*          <td className="px-6 py-4 text-sm text-gray-900">{item.blockId}</td>*/}
+            {/*          <td className="px-6 py-4 text-sm text-gray-900">{item.base}</td>*/}
+            {/*          <td className="px-6 py-4 text-sm text-gray-900">{item.busLength}</td>*/}
+            {/*          <td className="px-6 py-4 text-sm">*/}
+            {/*            <span className={`px-2 py-1 rounded-full text-xs ${*/}
+            {/*              item.status === 'Work' ? 'bg-teal-100 text-teal-800' :*/}
+            {/*              item.status === '1 split' ? 'bg-pink-100 text-pink-800' :*/}
+            {/*              'bg-red-100 text-red-800'*/}
+            {/*            }`}>*/}
+            {/*              {item.status}*/}
+            {/*            </span>*/}
+            {/*          </td>*/}
+            {/*          <td className="px-6 py-4 text-sm text-gray-900">{item.batteryCapacity}</td>*/}
+            {/*          <td className="px-6 py-4 text-sm text-gray-900">{item.energyNeeded}</td>*/}
+            {/*        </tr>*/}
+            {/*      ))}*/}
+            {/*    </tbody>*/}
+            {/*  </table>*/}
+            {/*</div>*/}
 
             {/* Pagination */}
             <div className="mt-4 text-sm text-gray-600">
@@ -194,4 +198,4 @@ export default function ReportView() {
       </div>
     </Layout>
   );
-} 
+}

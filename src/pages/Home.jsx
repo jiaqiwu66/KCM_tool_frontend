@@ -6,7 +6,7 @@ export default function Home() {
       {/* 侧边栏 */}
       <aside className="w-64 bg-white border-r border-slate-200 shadow-lg fixed h-full">
         <div className="h-14 flex items-center px-4 border-b border-slate-200">
-          <span className="font-medium text-lg">EcoRider</span>
+          <span className="font-medium text-lg">ZETA</span>
         </div>
         <nav className="p-4 space-y-2">
           <Link to="/" className="flex items-center px-4 py-2 text-slate-600 bg-slate-100 rounded-md">
@@ -38,7 +38,7 @@ export default function Home() {
         <main className="flex-1 p-8 max-w-5xl mx-auto w-full">
           <div className="bg-white rounded-lg p-6 shadow-sm mb-8">
             <h1 className="text-2xl font-bold mb-2">
-              Welcome to EcoRider, a zero emissions bus feasibility simulator!
+              Welcome to ZETA, a zero emissions bus feasibility simulator!
             </h1>
             <p className="text-slate-600">
               It can help your fleet simulate the transition from diesel buses to zero emission buses.
