@@ -134,7 +134,7 @@ const BusData = () => {
                       />
                     </div>
                     <div className="input-group">
-                      <label>Battery capacity (kWh)</label>
+                      <label>Battery capacity (kWh) <br/> &nbsp; </label>
                       <input
                         type="number"
                         value={data.battery}
