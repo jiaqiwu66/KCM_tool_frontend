@@ -1,8 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import  {useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import './ReportView.css';
 
 const ReportView = () => {
+
+  const location = useLocation();
+  const data = location.state;
+  console.log(data);
+  // const sum = data.no_split + data.one_split + data.two_split
+
+  const [, setError] = useState(null);
+  const [, setIsGeneratingReport] = useState(false);
+
   const simulationData = {
     energyEfficiency: 'Optimal condition',
     batteryRange: 'Start 90% - End 20%',
@@ -26,7 +35,49 @@ const ReportView = () => {
     { id: 'energy', label: 'Energy Efficiency and Battery Data', active: false },
     { id: 'report', label: 'Report Review', active: true }
   ];
+  const handleDownloadCSV = async () => {
+    try {
 
+      // 模拟报告生成时间
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      await fetch('http://localhost:5050/download', {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          // 'Content-Type': 'multipart/form-data',
+          // 'Accept': 'application/json',
+        },
+        // mode: 'no-cors',
+        method: 'GET',
+      }).then((response) => {
+        const reader = response.body.getReader();
+        reader.read().then(({value}) => {
+              // console.log(new TextDecoder("utf-8").decode(value));
+              saveAsFile(new TextDecoder("utf-8").decode(value), 'filename');
+            }
+        );
+      });
+
+      function saveAsFile(text, filename) {
+        // Step 1: Create the blob object with the text you received
+        const type = 'application/text'; // modify or get it from response
+        const blob = new Blob([text], {type});
+
+        // Step 2: Create Blob Object URL for that blob
+        const url = URL.createObjectURL(blob);
+
+        // Step 3: Trigger downloading the object using that URL
+        const htmlAnchorElement = document.createElement('a');
+        htmlAnchorElement.href = url;
+        htmlAnchorElement.download = filename;
+        htmlAnchorElement.click(); // triggering it manually
+      }
+    } catch (err) {
+      setError('Error generating report: ' + err.message);
+    } finally {
+      setIsGeneratingReport(false);
+    }
+  }
   return (
     <div className="page-container">
       <div className="top-nav">
@@ -69,7 +120,7 @@ const ReportView = () => {
               <h2>Overview</h2>
               <div className="download-options">
                 <button className="download-button">Download as jpg</button>
-                <button className="download-button">Download whole .csv file</button>
+                <button className="download-button" onClick={handleDownloadCSV}>Download whole .csv file</button>
               </div>
             </div>
 
@@ -81,9 +132,9 @@ const ReportView = () => {
 
             <div className="overview-chart">
               <div className="chart-bars">
-                <div className="bar no-split" style={{ width: '33%' }}></div>
-                <div className="bar one-split" style={{ width: '33%' }}></div>
-                <div className="bar two-split" style={{ width: '34%' }}></div>
+                <div className="bar no-split" style={{ width: `${calculatePercentage(data.no_split, data.total)}%` }}>{data.no_split}</div>
+                <div className="bar one-split" style={{ width: `${calculatePercentage(data.one_split, data.total)}%` }}>{data.one_split}</div>
+                <div className="bar two-split" style={{ width: `${calculatePercentage(data.two_split, data.total)}%` }}>{data.two_split}</div>
               </div>
               <div className="chart-legend">
                 <div className="legend-item">

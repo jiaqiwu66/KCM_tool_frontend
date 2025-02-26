@@ -29,7 +29,21 @@ const EnergyEfficiencyData = () => {
       console.error('Fetch error:', error)
     }
 
-    navigate('/fleet-service/report');
+    await fetch('http://localhost:5050/result', {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        // 'Content-Type': 'multipart/form-data',
+        // 'Accept': 'application/json',
+      },
+      // mode: 'no-cors',
+      method: 'GET'}).then((response) => {
+      response.json().then((data) => {
+        // 导航到报告页面
+        navigate('/fleet-service/report', {state: data});
+      })
+    });
+
+    // navigate('/fleet-service/report');
   };
 
   const steps = [

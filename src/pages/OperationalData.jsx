@@ -10,6 +10,23 @@ const OperationalData = () => {
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.type === 'text/csv') {
       setFile(selectedFile);
+      const formData = new FormData();
+      formData.append('operational', selectedFile);
+      fetch('http://localhost:5050/upload_op', {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          // 'Content-Type': 'multipart/form-data',
+          // 'Accept': 'application/json',
+        },
+        // mode: 'no-cors',
+        method: 'POST',
+        body: formData
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // or response.text(), response.blob(), etc.
+      });
     } else {
       alert('Please upload a CSV file');
     }
