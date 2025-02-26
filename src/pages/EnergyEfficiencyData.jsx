@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './EnergyEfficiencyData.css';
 
@@ -7,8 +7,28 @@ const EnergyEfficiencyData = () => {
   const [batteryRange, setBatteryRange] = useState('conservative');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:5050/energy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({efficiency: efficiencyCondition, battery: batteryRange})
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Success:', result);
+      } else {
+        console.error('Error:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Fetch error:', error)
+    }
+
     navigate('/fleet-service/report');
   };
 

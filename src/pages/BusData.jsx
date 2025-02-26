@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './OperationalData.css';
 
@@ -33,8 +33,28 @@ const BusData = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:5050/bus', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({data: busData, unit: units})
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Success:', result);
+      } else {
+        console.error('Error:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Fetch error:', error)
+    }
+
     navigate('/energy-efficiency');
   };
 
