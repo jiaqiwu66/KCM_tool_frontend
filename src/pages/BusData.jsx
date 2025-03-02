@@ -21,23 +21,48 @@ const BusData = () => {
 
   const handleUnitChange = (unit) => {
     setUnits(unit);
+    if (unit === 'kWh/mile') {
+      setBusData(prev => ({
+        ...prev, '40-foot': {
+          optimal: (parseFloat(prev["40-foot"].optimal) * 1.6).toFixed(2),
+          cold: (parseFloat(prev["40-foot"].cold) * 1.6).toFixed(2)
+        },
+        '60-foot': {
+          optimal: (parseFloat(prev["60-foot"].optimal) * 1.6).toFixed(2),
+          cold: (parseFloat(prev["60-foot"].cold) * 1.6).toFixed(2)
+        }
+      }))
+    } else if (unit === 'kWh/km') {
+      setBusData(prev => ({
+        ...prev, '40-foot': {
+          optimal: (parseFloat(prev["40-foot"].optimal) / 1.6).toFixed(2),
+          cold: (parseFloat(prev["40-foot"].cold) / 1.6).toFixed(2)
+        },
+        '60-foot': {
+          optimal: (parseFloat(prev["60-foot"].optimal) / 1.6).toFixed(2),
+          cold: (parseFloat(prev["60-foot"].cold) / 1.6).toFixed(2)
+        }
+      }))
+    }
   };
 
   const handleDataChange = (busType, field, value) => {
-    setBusData(prev => ({
-      ...prev,
-      [busType]: {
-        ...prev[busType],
-        [field]: value
-      }
-    }));
+    if (value === '' || parseFloat(value) >= 0) {
+      setBusData(prev => ({
+        ...prev,
+        [busType]: {
+          ...prev[busType],
+          [field]: value
+        }
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5050/bus', {
+      const response = fetch('http://localhost:5050/bus', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,6 +90,7 @@ const BusData = () => {
     { id: 'energy', label: 'Energy Efficiency and Battery Data', active: false },
     { id: 'report', label: 'Report Review', active: false }
   ];
+
 
   return (
     <div className="page-container">
@@ -138,19 +164,22 @@ const BusData = () => {
                     <div className="input-group">
                       <label>Efficiency in optimal weather condition ({units})</label>
                       <input
+                        id="input-efficiency"
                         type="number"
                         step="0.01"
                         value={data.optimal}
                         onChange={(e) => handleDataChange(busType, 'optimal', e.target.value)}
+                        min="0.01"
                       />
                     </div>
                     <div className="input-group">
-                      <label>Efficiency in extreme cold condition ({units})</label>
+                      <label>Efficiency in cold condition ({units})</label>
                       <input
                         type="number"
                         step="0.01"
                         value={data.cold}
                         onChange={(e) => handleDataChange(busType, 'cold', e.target.value)}
+                        min="0.01"
                       />
                     </div>
                     <div className="input-group">
@@ -159,6 +188,7 @@ const BusData = () => {
                         type="number"
                         value={data.battery}
                         onChange={(e) => handleDataChange(busType, 'battery', e.target.value)}
+                        min="0.01"
                       />
                     </div>
                   </div>
