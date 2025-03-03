@@ -11,7 +11,7 @@ const EnergyEfficiencyData = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://jwu66.pythonanywhere.com/energy', {
+      const response = await fetch('http://localhost:5050/energy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const EnergyEfficiencyData = () => {
       console.error('Fetch error:', error)
     }
 
-    await fetch('https://jwu66.pythonanywhere.com/result', {
+    await fetch('http://localhost:5050/result', {
       headers: {
         'Access-Control-Allow-Origin': '*',
         // 'Content-Type': 'multipart/form-data',

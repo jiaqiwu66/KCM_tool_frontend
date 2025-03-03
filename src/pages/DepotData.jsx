@@ -26,7 +26,7 @@ const DepotData = () => {
       setFile(selectedFile);
       const formData = new FormData();
       formData.append('depot', selectedFile);
-      fetch('https://jwu66.pythonanywhere.com/upload_depot', {
+      fetch('http://localhost:5050/upload_depot', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           // 'Content-Type': 'multipart/form-data',

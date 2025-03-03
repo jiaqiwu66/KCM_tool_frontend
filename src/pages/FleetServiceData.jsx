@@ -165,7 +165,7 @@ export default function FleetServiceData() {
       // 模拟报告生成时间
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      await fetch('https://jwu66.pythonanywhere.com/upload', {
+      await fetch('http://localhost:5050/upload', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           // 'Content-Type': 'multipart/form-data',
@@ -183,7 +183,7 @@ export default function FleetServiceData() {
         );
       });
 
-      await fetch('https://jwu66.pythonanywhere.com/result', {
+      await fetch('http://localhost:5050/result', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           // 'Content-Type': 'multipart/form-data',

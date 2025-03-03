@@ -25,22 +25,26 @@ const BusData = () => {
       setBusData(prev => ({
         ...prev, '40-foot': {
           optimal: (parseFloat(prev["40-foot"].optimal) * 1.6).toFixed(2),
-          cold: (parseFloat(prev["40-foot"].cold) * 1.6).toFixed(2)
+          cold: (parseFloat(prev["40-foot"].cold) * 1.6).toFixed(2),
+          battery: prev["40-foot"].battery
         },
         '60-foot': {
           optimal: (parseFloat(prev["60-foot"].optimal) * 1.6).toFixed(2),
-          cold: (parseFloat(prev["60-foot"].cold) * 1.6).toFixed(2)
+          cold: (parseFloat(prev["60-foot"].cold) * 1.6).toFixed(2),
+          battery: prev["60-foot"].battery
         }
       }))
     } else if (unit === 'kWh/km') {
       setBusData(prev => ({
         ...prev, '40-foot': {
           optimal: (parseFloat(prev["40-foot"].optimal) / 1.6).toFixed(2),
-          cold: (parseFloat(prev["40-foot"].cold) / 1.6).toFixed(2)
+          cold: (parseFloat(prev["40-foot"].cold) / 1.6).toFixed(2),
+          battery: prev["40-foot"].battery
         },
         '60-foot': {
           optimal: (parseFloat(prev["60-foot"].optimal) / 1.6).toFixed(2),
-          cold: (parseFloat(prev["60-foot"].cold) / 1.6).toFixed(2)
+          cold: (parseFloat(prev["60-foot"].cold) / 1.6).toFixed(2),
+          battery: prev["60-foot"].battery
         }
       }))
     }
@@ -62,7 +66,7 @@ const BusData = () => {
     e.preventDefault();
 
     try {
-      await fetch('https://jwu66.pythonanywhere.com/bus', {
+      await fetch('http://localhost:5050/bus', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
