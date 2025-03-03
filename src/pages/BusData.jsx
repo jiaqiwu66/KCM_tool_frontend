@@ -62,25 +62,22 @@ const BusData = () => {
     e.preventDefault();
 
     try {
-      const response = fetch('http://localhost:5050/bus', {
+      await fetch('http://localhost:5050/bus', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({data: busData, unit: units})
+      }).then((response) => {
+        response.json().then(() => {
+          navigate('/energy-efficiency');
+        })
       });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Success:', result);
-      } else {
-        console.error('Error:', response.statusText);
-      }
     } catch (error) {
       console.error('Fetch error:', error)
     }
 
-    navigate('/energy-efficiency');
+
   };
 
   const steps = [

@@ -5,16 +5,20 @@ import './ReportView.css';
 const ReportView = () => {
 
   const location = useLocation();
-  const data = location.state;
-  console.log(data);
-  // const sum = data.no_split + data.one_split + data.two_split
+  const data = location.state.data;
+  // console.log(data);
 
   const [, setError] = useState(null);
   const [, setIsGeneratingReport] = useState(false);
-
+  const batterRangeMap = {
+    "high-efficiency": "High-Efficiency (10%-90% SOC)",
+    "balanced": "Balanced (15%-90% SOC)",
+    "conservative": "Conservative (20%-90% SOC)",
+    "end-of-life": "End of life battery (20%-80% SOC)"
+  }
   const simulationData = {
-    energyEfficiency: 'Optimal condition',
-    batteryRange: 'Start 90% - End 20%',
+    energyEfficiency: location.state.efficiencyCondition,
+    batteryRange: batterRangeMap[location.state.batteryRange],
     bases: [
       { name: 'Atlantic-Central', blocks: 400, noSplit: 170, oneSplit: 190, twoSplit: 40 },
       { name: 'Bellevue', blocks: 400, noSplit: 180, oneSplit: 180, twoSplit: 40 },

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './EnergyEfficiencyData.css';
 
 const EnergyEfficiencyData = () => {
-  const [efficiencyCondition, setEfficiencyCondition] = useState('extreme-cold');
+  const [efficiencyCondition, setEfficiencyCondition] = useState('cold');
   const [batteryRange, setBatteryRange] = useState('conservative');
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ const EnergyEfficiencyData = () => {
         const result = await response.json();
         console.log('Success:', result);
       } else {
-        console.error('Error:', response.statusText);
+        console.error('Error:', response);
       }
     } catch (error) {
       console.error('Fetch error:', error)
@@ -39,7 +39,11 @@ const EnergyEfficiencyData = () => {
       method: 'GET'}).then((response) => {
       response.json().then((data) => {
         // 导航到报告页面
-        navigate('/fleet-service/report', {state: data});
+        navigate('/fleet-service/report', {state: {
+            data: data,
+            efficiencyCondition: efficiencyCondition,
+            batteryRange: batteryRange,
+          }});
       })
     });
 
@@ -112,11 +116,11 @@ const EnergyEfficiencyData = () => {
                     <input
                       type="radio"
                       name="efficiency"
-                      value="extreme-cold"
-                      checked={efficiencyCondition === 'extreme-cold'}
+                      value="cold"
+                      checked={efficiencyCondition === 'cold'}
                       onChange={(e) => setEfficiencyCondition(e.target.value)}
                     />
-                    Extreme cold condition
+                    Cold condition
                   </label>
                 </div>
               </div>
