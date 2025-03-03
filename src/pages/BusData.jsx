@@ -62,7 +62,7 @@ const BusData = () => {
     e.preventDefault();
 
     try {
-      await fetch('http://localhost:5050/bus', {
+      await fetch('https://jwu66.pythonanywhere.com/bus', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

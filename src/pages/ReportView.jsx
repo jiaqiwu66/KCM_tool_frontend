@@ -45,7 +45,7 @@ const ReportView = () => {
       // 模拟报告生成时间
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      await fetch('http://localhost:5050/download', {
+      await fetch('https://jwu66.pythonanywhere.com/download', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           // 'Content-Type': 'multipart/form-data',
