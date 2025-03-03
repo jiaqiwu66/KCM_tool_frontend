@@ -7,6 +7,7 @@ const OperationalData = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const handleFileChange = (event) => {
+    setError(null);
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.type === 'text/csv') {
       setFile(selectedFile);
