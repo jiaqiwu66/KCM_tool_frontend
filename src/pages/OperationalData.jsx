@@ -12,7 +12,7 @@ const OperationalData = () => {
       setFile(selectedFile);
       const formData = new FormData();
       formData.append('operational', selectedFile);
-      fetch('http://localhost:5050/upload_op', {
+      fetch('https://jwu66.pythonanywhere.com/upload_op', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           // 'Content-Type': 'multipart/form-data',
