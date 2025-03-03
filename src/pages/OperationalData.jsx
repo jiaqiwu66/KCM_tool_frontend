@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './OperationalData.css';
 
 const OperationalData = () => {
   const [file, setFile] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.type === 'text/csv') {
@@ -22,15 +22,27 @@ const OperationalData = () => {
         method: 'POST',
         body: formData
       }).then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.status !== 200) {
+          response.json().then((data) => {
+            let error_message = ""
+            if (data.message === "block id duplication") {
+              error_message = "Warning: The record at row " + data.row_number + " in the data with Block Id " + data.block_id + " is duplicated"
+            } else if (data.message === "distance neg") {
+              error_message = "Warning: The record at row " + data.row_number + " in the data with Block Id " + data.block_id + " distance is negative which is " + data.distance;
+            } else if (data.message === "vehicle size wrong") {
+              error_message = "Warning: The record at row " + data.row_number + " in the data with Block Id " + data.block_id + " vehicle size is wrong (neither 40 nor 60) which is " + data.vehicle_size;
+            }
+            setError(error_message);
+            alert(error_message);
+          })
         }
-        return response.json(); // or response.text(), response.blob(), etc.
+
       });
     } else {
       alert('Please upload a CSV file');
     }
   };
+
 
   const handleNext = () => {
     if (file) {
@@ -100,6 +112,12 @@ const OperationalData = () => {
                 </ul>
               </div>
 
+              {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
+                    {error}
+                  </div>
+              )}
+
               <div className="upload-section">
                 <h3>Upload files</h3>
                 <p className="file-requirements">Only .csv files. 5 MB max file size.</p>
@@ -122,6 +140,7 @@ const OperationalData = () => {
                 </div>
               </div>
             </div>
+
 
             <div className="navigation-buttons">
               <Link to="/" className="button secondary-button">
