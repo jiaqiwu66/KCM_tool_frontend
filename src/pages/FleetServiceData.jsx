@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 
 export default function FleetServiceData() {
@@ -13,7 +13,7 @@ export default function FleetServiceData() {
   });
   const [error, setError] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
-  const [previewData, setPreviewData] = useState({
+  const [previewData] = useState({
     employeeName: 'Jane Doe',
     date: '2024-12-10',
     time: '11:11:00',
@@ -165,7 +165,7 @@ export default function FleetServiceData() {
       // 模拟报告生成时间
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      await fetch('https://jwu66.pythonanywhere.com/upload', {
+      await fetch('http://localhost:5050/upload', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           // 'Content-Type': 'multipart/form-data',
@@ -183,7 +183,7 @@ export default function FleetServiceData() {
         );
       });
 
-      await fetch('https://jwu66.pythonanywhere.com/getResult', {
+      await fetch('http://localhost:5050/result', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           // 'Content-Type': 'multipart/form-data',

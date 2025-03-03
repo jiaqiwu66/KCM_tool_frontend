@@ -1,0 +1,130 @@
+/* 继承基础样式 */
+.page-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: white;
+  position: relative;
+}
+
+/* ... 其他基础样式继承自 OperationalData.css ... */
+
+.data-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.units-selection {
+  margin-bottom: 1.5rem;
+}
+
+.radio-group {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+}
+
+.bus-data-section {
+  background: #f5f5f5;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #eee;
+}
+
+.bus-data-section h3 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.data-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.input-group input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #0052FF;
+}
+
+.reference-data {
+  background: #f5f5f5;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #eee;
+}
+
+.reference-note {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.reference-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.reference-table th,
+.reference-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: 1px solid #eee;
+}
+
+.reference-table th {
+  background: #f0f0f0;
+  font-weight: 600;
+  color: #333;
+}
+
+.reference-table td {
+  color: #666;
+}
+
+@media (max-width: 992px) {
+  .data-inputs {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .radio-group {
+    flex-direction: column;
+    gap: 1rem;
+  }
+} 

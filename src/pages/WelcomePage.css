@@ -1,0 +1,151 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* 防止水平滚动 */
+  scrollbar-gutter: stable; /* 为滚动条保留空间 */
+}
+
+.welcome-container {
+  min-height: 100vh;
+  width: 100%;
+  background-image: url('/images/background.png');
+  background-size: cover;
+  background-position: center;
+  background-color: #0052FF;
+  display: flex;
+  align-items: center;
+  padding: clamp(2rem, 4vw, 6rem);
+  box-sizing: border-box; /* 确保padding包含在宽度内 */
+  position: fixed; /* 防止页面滚动导致的回弹 */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.welcome-content {
+  max-width: 90%;
+  width: 100%;
+  margin: 0 auto;
+  color: white;
+  height: 100%; /* 确保内容不会超出容器 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 垂直居中内容 */
+}
+
+.welcome-title {
+  font-size: clamp(4rem, 8vw, 9rem);
+  font-weight: 700;
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+  line-height: 1.1;
+}
+
+.zeta-text {
+  color: #C5FF32;
+}
+
+.welcome-description {
+  font-size: clamp(1.25rem, 2.5vw, 2.25rem);
+  max-width: 70%;
+  margin-bottom: clamp(3rem, 6vw, 6rem);
+  line-height: 1.4;
+}
+
+.welcome-buttons {
+  display: flex;
+  gap: clamp(1rem, 3vw, 3rem);
+}
+
+.button {
+  padding: clamp(0.75rem, 1.5vw, 1.75rem) clamp(1.5rem, 3vw, 3.5rem);
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+.primary-button {
+  background-color: white;
+  color: #0052FF;
+}
+
+.primary-button:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.secondary-button {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.secondary-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+@media (min-width: 1800px) {
+  .welcome-content {
+    max-width: 1800px;
+  }
+  
+  .welcome-description {
+    max-width: 1400px;
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 1799px) {
+  .welcome-content {
+    max-width: 1600px;
+  }
+  
+  .welcome-description {
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .welcome-container {
+    padding: 3rem;
+  }
+  
+  .welcome-content {
+    max-width: 90%;
+  }
+  
+  .welcome-description {
+    max-width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-container {
+    padding: 2rem;
+  }
+  
+  .welcome-content {
+    max-width: 100%;
+  }
+  
+  .welcome-title {
+    font-size: 2.5rem;
+  }
+  
+  .welcome-description {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+  
+  .welcome-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .button {
+    width: 100%;
+    text-align: center;
+  }
+} 
