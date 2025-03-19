@@ -1,12 +1,41 @@
-<<<<<<< HEAD
-# React + Vite
+# KCM Tool Front-end
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repo is the front-end part of KCM Tool. For back-end, please go to [KCM Tool Back-end repo](https://github.com/jiaqiwu66/KCM_tool_backend)
 
-Currently, two official plugins are available:
+## Introduction
+Through investigation, we create a tool, which allow King County Metro to adjust parameters, get a simulation report, and compare the results within the team. 
+We take several factors into account when designing and implementing the system, such as energy efficiency, battery capacity, depot capacity, etc.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-=======
-# KCM_tool
->>>>>>> 24a885d53ea75b9817d70be7ac8be82a05eb2f68
+## Local Test
+We use **Figma** to design, and use **React + Vite** to build the front-end.
+For more information, please refer to [React Tutorial](https://react.dev/learn) and [Vite Tutorial](https://vite.dev/guide/).
+
+Please follow the next step to run the front-end in local:
+- Clone the repo in local
+```
+git clone https://github.com/jiaqiwu66/KCM_tool_frontend
+```
+- Install the required node packages
+```
+npm install
+```
+- Run the front-end
+```
+npm run dev
+```
+If you can see the below info in the terminal, Congregations, front-end part is running in local.
+```
+> kcm-tool@0.0.0 dev
+> vite
+
+Re-optimizing dependencies because vite config has changed
+
+  VITE v6.0.11  ready in 337 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+
+```
+
+For back-end, please go to [KCM Tool Back-end repo](https://github.com/jiaqiwu66/KCM_tool_backend)
